@@ -28,7 +28,7 @@ public class GoogleSearchTest {
         //Initializes a browser
         driver = new FirefoxDriver();
         //Maximazes a window size
-        driver.manage().window().maximize();
+        driver.manage().window().maximize().;
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 
         //Opens an url
