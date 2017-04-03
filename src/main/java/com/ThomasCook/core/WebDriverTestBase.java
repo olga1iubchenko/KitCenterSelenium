@@ -1,4 +1,4 @@
-package com.liubchenko.core;
+package com.ThomasCook.core;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -15,20 +15,14 @@ public abstract class WebDriverTestBase {
 
         @BeforeClass
         public void setUp(){
-                System.setProperty("webdriver.gecko.driver",
-                        WebDriverTestBase.class.getClassLoader().getResource("geckodriverUnix").getPath());
+                System.setProperty("webdriver.gecko.driver", "/home/user/IdeaProjects/SeleniumKit/src/test/resources/geckodriverUnix");
 
                 //Initializes a browser
                 driver = new FirefoxDriver();
 
                 //Maximazes a window size
                 driver.manage().window().maximize();
-                //Implicit waits
-                driver.manage().timeouts().setScriptTimeout(50, TimeUnit.SECONDS);
-                driver.manage().timeouts().pageLoadTimeout(60, TimeUnit.SECONDS);
                 driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-                //Explicit wait
-
             }
 
         @AfterClass
