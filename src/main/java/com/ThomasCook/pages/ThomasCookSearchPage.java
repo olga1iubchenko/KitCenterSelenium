@@ -14,14 +14,38 @@ import org.openqa.selenium.support.ui.Select;
  */
 public class ThomasCookSearchPage extends AbstractPage {
 
-    @FindBy(how = How.XPATH, using = ".//*[@id='SearchbarForm-originContainer']/div/div/div/tc-typeahead/div/div[contains(concat(' ',@class,' '), 'SearchbarForm-summary ')]")
-    WebElement flyingFromField;
+    @FindBy(how = How.XPATH, using = ".//*[@id='SearchbarForm-originContainer']//i[@class='FormField-icon FormField-icon--right FormField-icon--link icon airplaneNE']")
+    WebElement depatuteAirportIcon;
+
+    @FindBy(how = How.XPATH, using = ".//*[@id='PopularTooltip--airports']//label[@class='FormField-labelCheckbox FormField-labelCheckbox--w ng-binding']")
+    WebElement flyingFromAirport;
+
+    @FindBy(how = How.ID, using = "iconClose-airports")
+    WebElement closeDepatureAirportIcon;
 
     @FindBy(how = How.XPATH, using = ".//*[@id='SearchbarForm-destinationContainer']/div/div/div/i")
     WebElement flyingToLocationIcon;
 
-    @FindBy(how = How.XPATH, using = ".//*[@id='PopularTooltip--destinations']/div[2]/div/div[3]/div[4]/label")
+    @FindBy(how = How.XPATH, using = ".//*[@id='PopularTooltip--destinations']//label[@class='FormField-labelCheckbox FormField-labelCheckbox--w ng-binding']")
      WebElement destionationCountry;
+
+    @FindBy(how=How.ID, using = "iconClose-destinations")
+    WebElement closeDestinationIcon;
+
+    @FindBy(how = How.ID, using ="when")
+    WebElement datePickerIcon;
+
+    @FindBy(how = How.CLASS_NAME, using = "ui-datepicker-month")
+    WebElement datePickerDDLMonth;
+
+    @FindBy(how = How.CLASS_NAME, using = "ui-datepicker-year")
+    WebElement datePickerDDLYear;
+
+    @FindBy(how = How.CLASS_NAME, using = "ui-datepicker-current-day")
+    WebElement currentDay;
+
+//    @FindBy(how = How.XPATH, using = ".//*[@id='ui-datepicker-div']/table/tbody//a[.='1']")
+//    WebElement customDateInCalendar;
 
     @FindBy(how = How.ID, using = "SearchbarForm-duration")
     WebElement durationDDlLocator;
@@ -45,22 +69,33 @@ public class ThomasCookSearchPage extends AbstractPage {
     }
 
     public void setFlyingFrom(String airport){
-        flyingFromField.sendKeys(airport);
-        flyingFromField.submit();
+        depatuteAirportIcon.click();
+        flyingFromAirport.click();
+        closeDepatureAirportIcon.click();
+
+        //flyingFromAirport.getAttribute("title");
     }
 
     public void setFlyingTo(String airport){
         flyingToLocationIcon.click();
         destionationCountry.click();
+        closeDestinationIcon.click();
     }
 
-    public void setStartDate(){
+    public void setStartDate(String month, String year){
+        datePickerIcon.click();
 
+        Select datePickerDDLMonthSelector = new Select(datePickerDDLMonth);
+        datePickerDDLMonthSelector.selectByVisibleText(month);
+
+        Select datePickerDDLYearSelector = new Select(datePickerDDLYear);
+        datePickerDDLYearSelector.selectByVisibleText(year);
+
+        currentDay.click();
     }
 
     public void setDuration(String duration){
           Select durationDDL = new Select(durationDDlLocator);
-          durationDDL.deselectAll();
           durationDDL.selectByVisibleText(duration);
     }
 //    public void setDuration(){
