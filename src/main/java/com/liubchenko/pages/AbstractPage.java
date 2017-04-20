@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
+import ru.yandex.qatools.allure.annotations.Step;
 
 /**
  * Created by user on 27.03.17.
@@ -24,14 +25,18 @@ public class AbstractPage{
         webDriverUtils = new WebDriverUtils(this.driver);
     }
 
+    @Step("Open URL")
     public void openURL(String url) {
         driver.get(url);
     }
 
+
+    @Step("Click on webelement")
     public void click(String id) {
         WebElement button = driver.findElement(By.id(id));
     }
 
+    @Step("Send input to depined search field")
     public void sendInputToSearchField(String input) {
         searchField.sendKeys(input);
         searchField.submit();

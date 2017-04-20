@@ -1,13 +1,14 @@
 package com.liubchenko.pages;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.*;
-import org.openqa.selenium.support.FindBys;
-import org.openqa.selenium.support.ui.ExpectedConditions;
+import com.liubchenko.pages.AbstractPage;
+        import org.openqa.selenium.By;
+        import org.openqa.selenium.WebDriver;
+        import org.openqa.selenium.WebElement;
+        import org.openqa.selenium.support.*;
+        import org.openqa.selenium.support.FindBys;
+        import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import java.util.List;
+        import java.util.List;
 
 /**
  * Created by user on 27.03.17.
@@ -30,3 +31,4 @@ public class GoogleResultPage extends AbstractPage {
         return seleniumLinks.get(0);
     }
 }
+
