@@ -1,4 +1,4 @@
-package com.liubchenko.pages;
+package com.liubchenko;
 
 import com.liubchenko.core.WebDriverTestBase;
 import org.openqa.selenium.By;
@@ -12,7 +12,7 @@ import org.testng.annotations.Test;
 /**
  * Created by user on 20.04.17.
  */
-public class W3SchoolDNDIFrame extends WebDriverTestBase {
+public class W3SchoolDNDIFrameTest extends WebDriverTestBase {
 
     @Test
     public void DNDTest() throws InterruptedException {

@@ -1,6 +1,8 @@
-package com.liubchenko.pages;
+package com.liubchenko;
 
 import com.liubchenko.core.WebDriverTestBase;
+import com.liubchenko.pages.GoogleResultPage;
+import com.liubchenko.pages.GoogleSearchPage;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
