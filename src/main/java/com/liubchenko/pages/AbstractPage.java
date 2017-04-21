@@ -3,6 +3,7 @@ package com.liubchenko.pages;
 import com.liubchenko.core.WebDriverTestBase;
 import com.liubchenko.util.WebDriverUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -41,6 +42,13 @@ public class AbstractPage{
         searchField.sendKeys(input);
         searchField.submit();
         webDriverUtils = new WebDriverUtils(this.driver);
+    }
+
+    @Step("JS Click")
+    public void jsClick(WebElement element) {
+        JavascriptExecutor executor;
+        executor = (JavascriptExecutor) driver;
+        executor.executeScript("arguments[0].click();", element);
     }
 
 

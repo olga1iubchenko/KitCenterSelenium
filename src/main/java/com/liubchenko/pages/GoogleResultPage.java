@@ -7,8 +7,9 @@ import com.liubchenko.pages.AbstractPage;
         import org.openqa.selenium.support.*;
         import org.openqa.selenium.support.FindBys;
         import org.openqa.selenium.support.ui.ExpectedConditions;
+import ru.yandex.qatools.allure.annotations.Step;
 
-        import java.util.List;
+import java.util.List;
 
 /**
  * Created by user on 27.03.17.
@@ -25,6 +26,7 @@ public class GoogleResultPage extends AbstractPage {
         PageFactory.initElements(driver, this);
     }
 
+    @Step("Find Link")
     public WebElement findLink() {
         webDriverUtils.waitForExpectedCondition(
                 ExpectedConditions.visibilityOfAllElements(seleniumLinks));

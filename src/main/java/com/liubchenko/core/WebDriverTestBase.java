@@ -11,9 +11,11 @@ import org.apache.commons.lang3.StringUtils;
 //import org.apache.logging.log4j.LogManager;
 //import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.os.WindowsUtils;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeSuite;
@@ -37,9 +39,9 @@ public abstract class WebDriverTestBase {
 
         @BeforeSuite
         public void setUp() {
-                if (isBrowserSetUpFor(BrowserName.CHROME.name(), BROWSER)) {
+                if (isBrowserSetUpFor(BrowserNames.CHROME.name(), BROWSER)) {
                         System.setProperty(getProperty(WEB_DRIVER_CHROME), getPath(getProperty(CHROME_PATH)));
-                } else if (isBrowserSetUpFor(BrowserName.FIREFOX.name(), BROWSER)) {
+                } else if (isBrowserSetUpFor(BrowserNames.FIREFOX.name(), BROWSER)) {
                         if (isWindows()) {
                                 System.setProperty(getProperty(WEB_DRIVER_GECKO), getPath(getProperty(GECKO_DRIVER_PATH_WIN)));
                         } else if (isUnix()) {
@@ -49,21 +51,26 @@ public abstract class WebDriverTestBase {
                 initializeWebDriver();
         }
 
-        private void initializeWebDriver() {
-                if (isBrowserSetUpFor(BrowserName.CHROME.name(), BROWSER)) {
-                        ChromeOptions options = new ChromeOptions();
-                        options.addArguments("--disable-extensions");
-                        driver = new ChromeDriver();
-                        desiredCapabilities.setBrowserName(BrowserName.CHROME.name());
-                } else if (isBrowserSetUpFor(BrowserName.FIREFOX.name(), BROWSER)) {
-                        driver = new FirefoxDriver();
-                        desiredCapabilities.setBrowserName(BrowserName.FIREFOX.name());
-                }
-                driver.manage().window().maximize();
-                driver.manage().timeouts().setScriptTimeout(Integer.valueOf(getProperty(SCRIPT_TIMEOUT)), TimeUnit.SECONDS);
-                driver.manage().timeouts().pageLoadTimeout(Integer.valueOf(getProperty(LOAD_TIMEOUT)), TimeUnit.SECONDS);
-                driver.manage().timeouts().implicitlyWait(Integer.valueOf(getProperty(IMPLICIT_WAIT)), TimeUnit.SECONDS);
+    private void initializeWebDriver() {
+        try {
+            if (isBrowserSetUpFor(BrowserNames.CHROME.name(), BROWSER)) {
+                ChromeOptions options = new ChromeOptions();
+                options.addArguments("--disable-extensions");
+                driver = new ChromeDriver();
+                desiredCapabilities.setBrowserName(BrowserNames.CHROME.name());
+            } else if (isBrowserSetUpFor(BrowserNames.FIREFOX.name(), BROWSER)) {
+                driver = new FirefoxDriver();
+                desiredCapabilities.setBrowserName(BrowserNames.FIREFOX.name());
+            }
+            driver.manage().window().maximize();
+            driver.manage().timeouts().setScriptTimeout(Integer.valueOf(getProperty(SCRIPT_TIMEOUT)), TimeUnit.SECONDS);
+            driver.manage().timeouts().pageLoadTimeout(Integer.valueOf(getProperty(LOAD_TIMEOUT)), TimeUnit.SECONDS);
+            driver.manage().timeouts().implicitlyWait(Integer.valueOf(getProperty(IMPLICIT_WAIT)), TimeUnit.SECONDS);
+        } catch (WebDriverException e) {
+            System.out.println(e.getMessage());
+            WindowsUtils.killByName(desiredCapabilities.getBrowserName() + "driver" + (isWindows() ? ".exe" : ""));
         }
+    }
 
         @AfterClass
         public void tearDown() {

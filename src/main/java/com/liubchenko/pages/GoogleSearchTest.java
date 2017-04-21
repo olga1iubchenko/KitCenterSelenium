@@ -2,6 +2,7 @@ package com.liubchenko.pages;
 
 import com.liubchenko.core.WebDriverTestBase;
 import org.testng.annotations.DataProvider;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import ru.yandex.qatools.allure.annotations.Description;
 import ru.yandex.qatools.allure.annotations.Title;
@@ -14,6 +15,8 @@ import static org.testng.AssertJUnit.assertEquals;
 
 @Title("Google search result test")
 @Description("Test performed with set of input provided with TestNG DataProvider")
+
+@Listeners({com.liubchenko.core.TestListener.class})
 public class GoogleSearchTest extends WebDriverTestBase{
     @DataProvider(name = "input")
     public static Object[][] inputFields() {
@@ -36,7 +39,10 @@ public class GoogleSearchTest extends WebDriverTestBase{
 
        googleResultPage.findLink();
 
+       googleResultPage.jsClick(googleResultPage.findLink());
+
        //Verifies a result
        assertEquals(googleResultPage.findLink().getText().contains(input), true);
    }
+
 }
