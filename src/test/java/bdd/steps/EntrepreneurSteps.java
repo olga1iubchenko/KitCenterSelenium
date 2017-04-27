@@ -1,5 +1,4 @@
 package bdd.steps;
-import com.sun.deploy.util.Waiter;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -9,6 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
+
 
 import java.util.concurrent.TimeUnit;
 
@@ -91,13 +91,13 @@ public class EntrepreneurSteps {
         driver.manage().timeouts().implicitlyWait(60,TimeUnit.SECONDS);
     }
 
-
-    @Then("^I should see form field with \"([^\"]*)\" title$")
-    public void iOnNextProject(String title) throws Throwable {
-        String titleName = title;
-        projectNameLabel = driver.findElement(projectNameLabelLocator);
-        Assert.assertEquals(projectNameLabel.getText(), titleName);
-    }
+//
+//    @Then("^I should see form field with \"([^\"]*)\" title$")
+//    public void iOnNextProject(String title) throws Throwable {
+//        String titleName = title;
+//        projectNameLabel = driver.findElement(projectNameLabelLocator);
+//        Assert.assertEquals(projectNameLabel.getText(), titleName);
+//    }
 
     public void tearDown() {
         driver.quit();
