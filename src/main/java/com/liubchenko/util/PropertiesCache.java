@@ -1,26 +1,27 @@
 package com.liubchenko.util;
 
-/**
- * Created by user on 03.04.17.
- */
 
-
-       import java.io.IOException;
-        import java.io.InputStream;
-        import java.util.Properties;
-        import java.util.Set;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.invoke.MethodHandles;
+import java.util.Properties;
+import java.util.Set;
 
 public class PropertiesCache {
     private final Properties configProp = new Properties();
 
+    private static final Logger LOG = LogManager.getLogger(MethodHandles.lookup().lookupClass());
+
     private PropertiesCache() {
         //Private constructor to restrict new instances
-        System.out.println("Read all properties from file");
+        LOG.info("Read all properties from file");
         InputStream in = this.getClass().getClassLoader().getResourceAsStream("test.properties");
         try {
             configProp.load(in);
         } catch (IOException e) {
-            System.out.println("Cann't read all properties from file. Exception: " + e);
+            LOG.error("Cann't read all properties from file. Exception: " + e);
         }
     }
 
